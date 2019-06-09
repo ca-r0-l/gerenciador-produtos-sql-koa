@@ -1,0 +1,4 @@
+node_modules/
+dist/
+dbConfig.ts
+package-lock.json

@@ -9,6 +9,12 @@ create table produtos(
 	constraint PK_produtos_id	primary key clustered (id)
 );
 
+create table categorias(
+	id							int identity(1,1) not null,
+	nome						varchar(100) not null
+	constraint PK_categorias_id	primary key clustered (id)
+);
+
 create table enderecos (
 	id								int identity(1,1) not null,
 	rua								varchar(100) not null,
