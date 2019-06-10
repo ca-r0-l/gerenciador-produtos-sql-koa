@@ -11,8 +11,22 @@ const routerOpts: Router.IRouterOptions = {
   
 const routerController: Router = new Router(routerOpts);
 
-routerController.get('/', async (ctx:Koa.Context) => {
+routerController
+  .get('/', async (ctx:Koa.Context) => {
+    console.log('Buscando todos os produtos.');
     const result: Response = await produtosService.getAll();
+    ctx.body = result.data;
+    ctx.status = result.code;
+  })
+  .post('/', async (ctx:any) => {
+    console.log('Adicionando um novo produto.');
+    const result: Response = await produtosService.add(ctx.request.body);
+    ctx.body = result.data;
+    ctx.status = result.code;
+  })
+  .delete('/:id', async (ctx:any) => {
+    console.log('Deletando um produto.');
+    const result: Response = await produtosService.delete(ctx.params.id);
     ctx.body = result.data;
     ctx.status = result.code;
   });
