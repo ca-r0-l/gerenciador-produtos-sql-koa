@@ -43,4 +43,20 @@ export default class ProdutosService {
             return new Response(500);
           }
     }
+
+    public async update(id: number, produto: Produto): Promise<Response> {
+        try {
+            const pool = await connection;
+            const result = await pool.request()
+                .input('id', id)
+                .input('nome', produto.nome)
+                .input('preco_unitario', produto.preco_unitario)
+                .input('categoria', produto.categoria)
+                .query('update produtos set nome = @nome, preco_unitario = @preco_unitario, categoria = @categoria where id = @id;');
+            return new Response(200, result.rowsAffected);
+        } catch (err) {
+            console.log('ProdutosService file: ', err);
+            return new Response(500);
+          }
+    }
 }

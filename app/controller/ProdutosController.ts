@@ -29,6 +29,12 @@ routerController
     const result: Response = await produtosService.delete(ctx.params.id);
     ctx.body = result.data;
     ctx.status = result.code;
+  }) 
+  .put('/:id', async (ctx:any) => {
+    console.log('Atualizando um produto.');
+    const result: Response = await produtosService.update(ctx.params.id, ctx.request.body);
+    ctx.body = result.data;
+    ctx.status = result.code;
   });
   
 export default routerController;
