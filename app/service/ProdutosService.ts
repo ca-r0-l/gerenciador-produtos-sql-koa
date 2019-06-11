@@ -52,7 +52,7 @@ export default class ProdutosService {
                 .input('nome', produto.nome)
                 .input('preco_unitario', produto.preco_unitario)
                 .input('categoria', produto.categoria)
-                .query('update produtos set nome = @nome, preco_unitario = @preco_unitario, categoria = @categoria where id = @id;');
+                .query('updat   e produtos set nome = @nome, preco_unitario = @preco_unitario, categoria = @categoria where id = @id;');
             return new Response(200, result.rowsAffected);
         } catch (err) {
             console.log('ProdutosService file: ', err);

@@ -4,26 +4,21 @@ import * as json from 'koa-json';
 import routerController from './controller/ProdutosController';
 
 const app = new Koa();
+app.use(async (ctx, next) => {
+   try {
+      await next()
 
-// Generic error handling middleware.
-app.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
-  try {
-    await next();
-  } catch (error) {
-    ctx.status = error.statusCode || error.status;
-    error.status = ctx.status;
-    ctx.body = { error };
-    ctx.app.emit('error', error, ctx);
-  }
+      if (ctx.status === 404) ctx.throw(404)
+   } catch (err) {
+      console.error(err)
+      ctx.status = err.status || 500
+      ctx.body = err.message
+   }
 });
+
 app.use(json());
 app.use(bodyParser());
 app.use(routerController.routes());
 app.use(routerController.allowedMethods());
-// Application error logging.
-app.on('error', console.error);
 
 export default app;
-
-
-
