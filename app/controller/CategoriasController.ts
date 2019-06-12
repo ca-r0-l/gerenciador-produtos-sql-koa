@@ -1,23 +1,23 @@
 import * as Koa from "koa";
 import * as Router from "koa-router";
-import ProdutosService from "../service/ProdutosService";
 import Response from "../entity/Response";
-import ProdutosBO from "../bo/ProdutosBO";
-import Produto from "../entity/Produto";
+import CategoriaBO from "../bo/CategoriaBO";
+import CategoriasService from "../service/CategoriasService";
+import Categoria from "../entity/Categoria";
 
-const produtosService = new ProdutosService();
+const categoriasService = new CategoriasService();
 
 const routerOpts: Router.IRouterOptions = {
-   prefix: "/produtos"
+   prefix: "/categorias"
 };
 
 const routerController: Router = new Router(routerOpts);
-const produtosBO = new ProdutosBO();
+const categoriaBO = new CategoriaBO();
 
 routerController
    .get("/", async (ctx: Koa.Context) => {
       try {
-         const result: Response = await produtosService.getAll();
+         const result: Response = await categoriasService.getAll();
          ctx.body = result.data;
          ctx.status = result.code;
       } catch (err) {
@@ -25,25 +25,25 @@ routerController
       }
    })
    .post("/", async (ctx: any) => {
-      const produto: Produto = ctx.request.body;
-      produtosBO.validProduto(produto);
-      const result: Response = await produtosService.add(produto);
+      const categoria: Categoria = ctx.request.body;
+      categoriaBO.validCategoria(categoria);
+      const result: Response = await categoriasService.add(categoria);
       ctx.body = result.data;
       ctx.status = result.code;
    })
    .delete("/:id", async (ctx: any) => {
       const id: number = ctx.params.id;
-      produtosBO.validId(id);
-      const result: Response = await produtosService.delete(id);
+      categoriaBO.validId(id);
+      const result: Response = await categoriasService.delete(id);
       ctx.body = result.data;
       ctx.status = result.code;
    })
    .put("/:id", async (ctx: any) => {
       const id: number = ctx.params.id;
-      const produto: Produto = ctx.request.body;
-      produtosBO.validProduto(produto);
-      produtosBO.validId(id);
-      const result: Response = await produtosService.update(id, produto);
+      categoriaBO.validId(id);
+      const nome: string = ctx.request.body.nome;
+      categoriaBO.validNome(nome);
+      const result: Response = await categoriasService.updateNome(id, nome);
       ctx.body = result.data;
       ctx.status = result.code;
    });
