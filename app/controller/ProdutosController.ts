@@ -17,7 +17,8 @@ const produtosBO = new ProdutosBO();
 routerController
    .get("/", async (ctx: Koa.Context) => {
       try {
-         const result: Response = await produtosService.getAll();
+         const pageNumber = ctx.request.query.pageNumber;
+         const result: Response = await produtosService.getAll(pageNumber);
          ctx.body = result.data;
          ctx.status = result.code;
       } catch (err) {
@@ -40,9 +41,9 @@ routerController
    })
    .put("/:id", async (ctx: any) => {
       const id: number = ctx.params.id;
+      produtosBO.validId(id);
       const produto: Produto = ctx.request.body;
       produtosBO.validProduto(produto);
-      produtosBO.validId(id);
       const result: Response = await produtosService.update(id, produto);
       ctx.body = result.data;
       ctx.status = result.code;

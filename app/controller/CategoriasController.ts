@@ -1,7 +1,7 @@
 import * as Koa from "koa";
 import * as Router from "koa-router";
 import Response from "../entity/Response";
-import CategoriaBO from "../bo/CategoriaBO";
+import CategoriasBO from "../bo/CategoriasBO";
 import CategoriasService from "../service/CategoriasService";
 import Categoria from "../entity/Categoria";
 
@@ -12,12 +12,13 @@ const routerOpts: Router.IRouterOptions = {
 };
 
 const routerController: Router = new Router(routerOpts);
-const categoriaBO = new CategoriaBO();
+const categoriaBO = new CategoriasBO();
 
 routerController
    .get("/", async (ctx: Koa.Context) => {
       try {
-         const result: Response = await categoriasService.getAll();
+         const pageNumber: string = ctx.request.query.pageNumber;
+         const result: Response = await categoriasService.getAllPaginated(pageNumber);
          ctx.body = result.data;
          ctx.status = result.code;
       } catch (err) {
@@ -41,9 +42,9 @@ routerController
    .put("/:id", async (ctx: any) => {
       const id: number = ctx.params.id;
       categoriaBO.validId(id);
-      const nome: string = ctx.request.body.nome;
-      categoriaBO.validNome(nome);
-      const result: Response = await categoriasService.updateNome(id, nome);
+      const categoria = ctx.request.body;
+      categoriaBO.validNome(categoria);
+      const result: Response = await categoriasService.update(id, categoria);
       ctx.body = result.data;
       ctx.status = result.code;
    });

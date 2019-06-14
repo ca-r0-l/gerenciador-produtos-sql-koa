@@ -3,10 +3,18 @@ import Response from "../entity/Response";
 import Categoria from "../entity/Categoria";
 
 export default class CategoriasService {
-   public async getAll(): Promise<Response> {
+   private PER_PAGE: number = 5;
+
+   public async getAllPaginated(pageNumber): Promise<Response> {
       try {
          const pool = await connection;
-         const result = await pool.request().query("select * from categorias;");
+         const result = await pool.request().query(`
+            SELECT * 
+               FROM categorias
+               ORDER BY categorias.id
+               OFFSET ${this.PER_PAGE} * (${pageNumber} - 1) ROWS
+               FETCH NEXT ${this.PER_PAGE} ROWS ONLY;
+         `);
          return new Response(200, this.createCategoria(result.recordset));
       } catch (err) {
          console.log("CategoriasService file: ", err);
@@ -42,13 +50,13 @@ export default class CategoriasService {
       }
    }
 
-   public async updateNome(id: number, nome: string): Promise<Response> {
+   public async update(id: number, categoria: Categoria): Promise<Response> {
       try {
          const pool = await connection;
          const result = await pool
             .request()
             .input("id", id)
-            .input("nome", nome)
+            .input("nome", categoria.nome)
             .query("update categorias set nome = @nome where id = @id;");
          return new Response(200, this.createCategoria(result.recordset));
       } catch (err) {
