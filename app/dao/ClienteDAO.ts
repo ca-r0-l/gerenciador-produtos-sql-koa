@@ -1,11 +1,10 @@
 import connection from "../dbConnection";
-import Response from "../entity/Response";
 import Cliente from "../entity/Cliente";
 
-export default class ClientesService {
+export default class ClienteDAO {
    private PER_PAGE: number = 5;
 
-   public async getAll(pageNumber): Promise<Response> {
+   public async getAllPaginated(pageNumber): Promise<any> {
       try {
          const pool = await connection;
          const result = await pool.request().query(`
@@ -19,14 +18,14 @@ export default class ClientesService {
                   OFFSET ${this.PER_PAGE} * (${pageNumber} - 1) ROWS
                   FETCH NEXT ${this.PER_PAGE} ROWS ONLY;
             `);
-         return new Response(200, this.createCategoria(result.recordset));
+         return result.recordset;
       } catch (err) {
          console.log("ClientesService file: ", err);
-         return new Response(500);
+         return err;
       }
    }
 
-   public async add(cliente: Cliente): Promise<Response> {
+   public async add(cliente: Cliente): Promise<any> {
       try {
          const pool = await connection;
          const result = await pool
@@ -35,50 +34,69 @@ export default class ClientesService {
             .input("endereco", cliente.endereco)
             .input("celular", cliente.celular)
             .query("insert into clientes (nome, endereco, celular) values (@nome, @endereco, @celular);");
-         return new Response(200, this.createCategoria(result.recordset));
+         return result.recordset;
       } catch (err) {
          console.log("ClientesService file: ", err);
-         return new Response(500);
+         return err;
       }
    }
 
-   public async delete(id: number): Promise<Response> {
+   public async delete(id: number): Promise<any> {
       try {
          const pool = await connection;
          const result = await pool
             .request()
             .input("id", id)
             .query("delete from clientes where id = @id;");
-         return new Response(200, this.createCategoria(result.recordset));
+         return result.recordset;
       } catch (err) {
          console.log("ClientesService file: ", err);
-         return new Response(500);
+         return err;
       }
    }
 
-   public async update(id: number, cliente: Cliente): Promise<Response> {
+   public async updateNome(id: number, nome: string): Promise<any> {
       try {
          const pool = await connection;
          const result = await pool
             .request()
             .input("id", id)
-            .input("nome", cliente.nome)
-            .input("endereco", cliente.endereco)
-            .input("celular", cliente.celular)
-            .query("update clientes set nome = @nome, endereco = @endereco, celular = @celular where id = @id;");
-         return new Response(200, this.createCategoria(result.recordset));
+            .input("nome", nome)
+            .query("update clientes set nome = @nome where id = @id;");
+         return result.recordset;
       } catch (err) {
          console.log("ClientesService file: ", err);
-         return new Response(500);
+         return err;
       }
    }
 
-   private createCategoria(cliente): Array<Cliente> {
-      const clientes = new Array<Cliente>();
-      if (cliente && cliente.length) {
-         cliente.forEach(c => clientes.push(new Cliente(c["nome"], c["endereco"], c["celular"], c["idCliente"])));
+   public async updateEndereco(id: number, endereco: number): Promise<any> {
+      try {
+         const pool = await connection;
+         const result = await pool
+            .request()
+            .input("id", id)
+            .input("endereco", endereco)
+            .query("update clientes set endereco = @endereco where id = @id;");
+         return result.recordset;
+      } catch (err) {
+         console.log("ClientesService file: ", err);
+         return err;
       }
+   }
 
-      return clientes;
+   public async updateCelular(id: number, celular: string): Promise<any> {
+      try {
+         const pool = await connection;
+         const result = await pool
+            .request()
+            .input("id", id)
+            .input("celular", celular)
+            .query("update clientes set celular = @celular where id = @id;");
+         return result.recordset;
+      } catch (err) {
+         console.log("ClientesService file: ", err);
+         return err;
+      }
    }
 }

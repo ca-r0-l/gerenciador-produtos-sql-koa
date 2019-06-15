@@ -1,8 +1,9 @@
 import * as Koa from "koa";
 import * as bodyParser from "koa-bodyparser";
 import * as json from "koa-json";
-import produtosController from "./controller/ProdutosController";
-import categoriasController from "./controller/CategoriasController";
+import produtoController from "./controller/ProdutoController";
+import categoriaController from "./controller/CategoriaController";
+import clienteController from "./controller/ClienteController";
 
 const app = new Koa();
 app.use(async (ctx, next) => {
@@ -19,9 +20,14 @@ app.use(async (ctx, next) => {
 
 app.use(json());
 app.use(bodyParser());
-app.use(produtosController.routes());
-app.use(produtosController.allowedMethods());
-app.use(categoriasController.routes());
-app.use(categoriasController.allowedMethods());
+
+app.use(produtoController.routes());
+app.use(produtoController.allowedMethods());
+
+app.use(categoriaController.routes());
+app.use(categoriaController.allowedMethods());
+
+app.use(clienteController.routes());
+app.use(clienteController.allowedMethods());
 
 export default app;
