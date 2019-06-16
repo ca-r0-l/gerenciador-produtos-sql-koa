@@ -1,5 +1,3 @@
-import Cliente from "../entity/Cliente";
-
 export default class ClienteBO {
    private static readonly ID_INVALIDO: string = "Id inválido";
    private static readonly NOME_INVALIDO: string = "Nome inválido";

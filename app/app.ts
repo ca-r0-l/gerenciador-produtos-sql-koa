@@ -5,6 +5,7 @@ import produtoController from "./controller/ProdutoController";
 import categoriaController from "./controller/CategoriaController";
 import clienteController from "./controller/ClienteController";
 import enderecoController from "./controller/EnderecoController";
+import pedidoController from "./controller/PedidoController";
 
 const app = new Koa();
 app.use(async (ctx, next) => {
@@ -33,5 +34,8 @@ app.use(clienteController.allowedMethods());
 
 app.use(enderecoController.routes());
 app.use(enderecoController.allowedMethods());
+
+app.use(pedidoController.routes());
+app.use(pedidoController.allowedMethods());
 
 export default app;

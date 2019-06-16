@@ -1,5 +1,3 @@
-import Produto from "../entity/Produto";
-
 export default class ProdutoBO {
    private static readonly ID_INVALIDO: string = "Id inválido";
    private static readonly NOME_INVALIDO: string = "Nome inválido";
