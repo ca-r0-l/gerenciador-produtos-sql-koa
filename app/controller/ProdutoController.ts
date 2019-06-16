@@ -48,7 +48,7 @@ produtoController
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/catgegoria/:id", async (ctx: any) => {
+   .put("/categoria/:id", async (ctx: any) => {
       const id: number = ctx.params.id;
       const categoria: number = ctx.request.body.categoria;
       const result: Response = await produtoService.updateCategoria(id, categoria);

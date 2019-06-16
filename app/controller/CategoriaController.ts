@@ -35,8 +35,8 @@ categoriaController
    })
    .put("/nome/:id", async (ctx: any) => {
       const id: number = ctx.params.id;
-      const categoria = ctx.request.body.nome;
-      const result: Response = await categoriaService.updateNome(id, categoria);
+      const nome = ctx.request.body.nome;
+      const result: Response = await categoriaService.updateNome(id, nome);
       ctx.body = result.data;
       ctx.status = result.code;
    });

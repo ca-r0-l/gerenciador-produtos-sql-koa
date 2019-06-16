@@ -2,6 +2,7 @@ import Response from "../entity/Response";
 import Cliente from "../entity/Cliente";
 import ClienteDAO from "../dao/ClienteDAO";
 import ClienteBO from "../bo/ClienteBO";
+import Endereco from "../entity/Endereco";
 
 export default class ClienteService {
    private _clienteDAO: ClienteDAO;
@@ -54,7 +55,16 @@ export default class ClienteService {
    private createCliente(cliente): Array<Cliente> {
       const clientes = new Array<Cliente>();
       if (cliente && cliente.length) {
-         cliente.forEach(c => clientes.push(new Cliente(c["nome"], c["endereco"], c["celular"], c["idCliente"])));
+         cliente.forEach(c =>
+            clientes.push(
+               new Cliente(
+                  c["nome"],
+                  new Endereco(c["rua"], c["numero"], c["bairro"], c["cidade"], c["estado"], c["idEndereco"]),
+                  c["celular"],
+                  c["idCliente"]
+               )
+            )
+         );
       }
 
       return clientes;

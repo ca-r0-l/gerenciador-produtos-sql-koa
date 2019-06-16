@@ -5,13 +5,13 @@ export default class CategoriaBO {
    private static readonly NOME_INVALIDO: string = "Nome inválido";
 
    validId(id: any): void {
-      if (!id || id <= 0) {
+      if (!id || (id && id <= 0)) {
          throw new Error(CategoriaBO.ID_INVALIDO);
       }
    }
 
    validNome(nome: string): void {
-      if (!nome || nome.trim().length === 0) {
+      if (!nome || (nome && nome.trim().length === 0)) {
          throw new Error(CategoriaBO.NOME_INVALIDO);
       }
    }
