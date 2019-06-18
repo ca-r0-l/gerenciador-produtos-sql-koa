@@ -33,35 +33,35 @@ enderecoController
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/rua/:id", async (ctx: any) => {
+   .put("/:id/rua", async (ctx: any) => {
       const id: number = ctx.params.id;
       const rua = ctx.request.body.rua;
       const result: Response = await enderecoService.updateRua(id, rua);
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/numero/:id", async (ctx: any) => {
+   .put("/:id/numero", async (ctx: any) => {
       const id: number = ctx.params.id;
       const numero = ctx.request.body.numero;
       const result: Response = await enderecoService.updateNumero(id, numero);
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/bairro/:id", async (ctx: any) => {
+   .put("/:id/bairro", async (ctx: any) => {
       const id: number = ctx.params.id;
       const bairro = ctx.request.body.bairro;
       const result: Response = await enderecoService.updateBairro(id, bairro);
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/cidade/:id", async (ctx: any) => {
+   .put("/:id/cidade", async (ctx: any) => {
       const id: number = ctx.params.id;
       const cidade = ctx.request.body.cidade;
       const result: Response = await enderecoService.updateCidade(id, cidade);
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/estado/:id", async (ctx: any) => {
+   .put("/:id/estado", async (ctx: any) => {
       const id: number = ctx.params.id;
       const estado = ctx.request.body.estado;
       const result: Response = await enderecoService.updateEstado(id, estado);

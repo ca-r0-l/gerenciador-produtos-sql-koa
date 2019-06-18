@@ -33,7 +33,7 @@ categoriaController
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/nome/:id", async (ctx: any) => {
+   .put("/:id/nome", async (ctx: any) => {
       const id: number = ctx.params.id;
       const nome = ctx.request.body.nome;
       const result: Response = await categoriaService.updateNome(id, nome);

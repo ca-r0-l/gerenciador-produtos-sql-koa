@@ -5,7 +5,7 @@ export default class ProdutoBO {
    private static readonly CATEGORIA_INVALIDO: string = "Categoria inválido";
 
    validId(id: any): void {
-      if (!id || ((id && typeof id !== "number") || id <= 0)) {
+      if (!id || (id && id <= 0)) {
          throw new Error(ProdutoBO.ID_INVALIDO);
       }
    }

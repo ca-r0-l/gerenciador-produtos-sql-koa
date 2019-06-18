@@ -34,7 +34,7 @@ export default class PedidoDAO {
             .request()
             .input("id_cliente", pedido.cliente)
             .input("valor_compra", pedido.valorCompra)
-            .query("insert into pedidos (id_cliente, valor_compra) values (@id_cliente, @valor_compra);");
+            .query("insert into pedidos (id_cliente, valor_compra) values (@id_cliente, @valor_compra);select scope_identity() id;");
          return result.recordset;
       } catch (err) {
          console.log("PedidoService file: ", err);

@@ -34,21 +34,21 @@ produtoController
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/nome/:id", async (ctx: any) => {
+   .put("/:id/nome", async (ctx: any) => {
       const id: number = ctx.params.id;
       const nome: string = ctx.request.body.nome;
       const result: Response = await produtoService.updateNome(id, nome);
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/preco/:id", async (ctx: any) => {
+   .put("/:id/preco", async (ctx: any) => {
       const id: number = ctx.params.id;
       const preco: number = ctx.request.body.preco;
       const result: Response = await produtoService.updatePreco(id, preco);
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/categoria/:id", async (ctx: any) => {
+   .put("/:id/categoria", async (ctx: any) => {
       const id: number = ctx.params.id;
       const categoria: number = ctx.request.body.categoria;
       const result: Response = await produtoService.updateCategoria(id, categoria);

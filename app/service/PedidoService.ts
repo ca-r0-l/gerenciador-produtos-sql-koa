@@ -4,14 +4,17 @@ import Pedido from "../entity/Pedido";
 import Cliente from "../entity/Cliente";
 import Endereco from "../entity/Endereco";
 import PedidoBO from "../bo/PedidoBO";
+import PedidoProdutoService from "./PedidoProdutoService";
 
 export default class PedidoService {
    private _pedidoDAO: PedidoDAO;
    private _pedidoBO: PedidoBO;
+   private _pedidoProdutoService: PedidoProdutoService;
 
    constructor() {
       this._pedidoBO = new PedidoBO();
       this._pedidoDAO = new PedidoDAO();
+      this._pedidoProdutoService = new PedidoProdutoService();
    }
 
    public async getAllPaginated(pageNumber): Promise<Response> {
@@ -20,9 +23,10 @@ export default class PedidoService {
       return new Response(200, this.createPedido(result));
    }
 
-   public async add(pedido): Promise<Response> {
+   public async add(pedido: Pedido): Promise<Response> {
       this._pedidoBO.validPedido(pedido);
       const result = await this._pedidoDAO.add(pedido);
+      if (result && result[0] && result[0].id) await this._pedidoProdutoService.add(pedido.produtos, result[0].id);
       return new Response(200, this.createPedido(result));
    }
 

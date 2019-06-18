@@ -22,8 +22,8 @@ pedidoController
       }
    })
    .post("/", async (ctx: any) => {
-      const categoria = ctx.request.body;
-      const result: Response = await pedidoService.add(categoria);
+      const pedido = ctx.request.body;
+      const result: Response = await pedidoService.add(pedido);
       ctx.body = result.data;
       ctx.status = result.code;
    })
@@ -33,14 +33,14 @@ pedidoController
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/cliente/:id", async (ctx: any) => {
+   .put("/:id/cliente", async (ctx: any) => {
       const id: number = ctx.params.id;
       const cliente = ctx.request.body.cliente;
       const result: Response = await pedidoService.updateCliente(id, cliente);
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .put("/valor/:id", async (ctx: any) => {
+   .put("/:id/valor", async (ctx: any) => {
       const id: number = ctx.params.id;
       const valor = ctx.request.body.valor;
       const result: Response = await pedidoService.updateValor(id, valor);
