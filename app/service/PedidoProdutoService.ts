@@ -12,9 +12,4 @@ export default class PedidoProdutoService {
       const result = await this._produtoPedidoDAO.getAllPaginated(pageNumber);
       return new Response(200, result);
    }
-
-   public async add(produtos: Array<Produto>, idPedido: number): Promise<Response> {
-      const result = await this._produtoPedidoDAO.add(produtos, idPedido);
-      return new Response(200, result);
-   }
 }
