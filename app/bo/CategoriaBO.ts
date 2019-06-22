@@ -1,8 +1,8 @@
 import Categoria from "../entity/Categoria";
 
 export default class CategoriaBO {
-   private static readonly ID_INVALIDO: string = "Id inválido";
-   private static readonly NOME_INVALIDO: string = "Nome inválido";
+   public static readonly ID_INVALIDO: string = "Id inválido";
+   public static readonly NOME_INVALIDO: string = "Nome inválido";
 
    validId(id: any): void {
       if (!id || (id && id <= 0)) {
