@@ -2,15 +2,17 @@ import connection from "../dbConnection";
 
 export default class EnderecoDAO {
    private PER_PAGE: number = 5;
+   private readonly SELECT: string = `SELECT * 
+   FROM enderecos`;
+   private readonly ORDER: string = `ORDER BY enderecos.id`;
 
    public async getAllPaginated(pageNumber): Promise<any> {
       const pool = await connection;
       const result = await pool.request().query(`
-         SELECT * 
-            FROM enderecos
-            ORDER BY enderecos.id
-            OFFSET ${this.PER_PAGE} * (${pageNumber} - 1) ROWS
-            FETCH NEXT ${this.PER_PAGE} ROWS ONLY;
+         ${this.SELECT}
+         ${this.ORDER}
+         OFFSET ${this.PER_PAGE} * (${pageNumber} - 1) ROWS
+         FETCH NEXT ${this.PER_PAGE} ROWS ONLY;
       `);
       return result.recordset;
    }
@@ -25,6 +27,15 @@ export default class EnderecoDAO {
          .input("cidade", endereco.cidade)
          .input("estado", endereco.estado)
          .query("insert into enderecos (rua, numero, bairro, cidade, estado) values (@rua, @numero, @bairro, @cidade, @estado);");
+      return result.recordset;
+   }
+
+   public async detail(id: number): Promise<any> {
+      const pool = await connection;
+      const result = await pool
+         .request()
+         .input("id", id)
+         .query(`${this.SELECT} where id = @id;`);
       return result.recordset;
    }
 

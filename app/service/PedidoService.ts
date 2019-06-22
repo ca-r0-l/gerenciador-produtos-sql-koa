@@ -28,6 +28,12 @@ export default class PedidoService {
       return new Response(200, this.createPedido(result));
    }
 
+   public async detail(id: number): Promise<Response> {
+      this._pedidoBO.validId(id);
+      const result = await this._pedidoDAO.detail(id);
+      return new Response(200, this.createPedido(result));
+   }
+
    public async delete(id: number): Promise<Response> {
       this._pedidoBO.validId(id);
       const result = await this._pedidoDAO.delete(id);

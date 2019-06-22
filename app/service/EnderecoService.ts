@@ -24,6 +24,12 @@ export default class EnderecoService {
       return new Response(200, this.createEndereco(result));
    }
 
+   public async detail(id: number): Promise<Response> {
+      this._enderecoBO.validId(id);
+      const result = await this._enderecoDAO.detail(id);
+      return new Response(200, this.createEndereco(result));
+   }
+
    public async delete(id: number): Promise<Response> {
       this._enderecoBO.validId(id);
       const result = await this._enderecoDAO.delete(id);

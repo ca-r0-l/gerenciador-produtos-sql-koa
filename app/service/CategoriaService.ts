@@ -24,6 +24,11 @@ export default class CategoriaService {
       return new Response(200, this.createCategoria(result));
    }
 
+   public async detail(id: number): Promise<Response> {
+      const result = await this._categoriaDAO.detail(id);
+      return new Response(200, this.createCategoria(result));
+   }
+
    public async delete(id: number): Promise<Response> {
       const result = await this._categoriaDAO.delete(id);
       return new Response(200, this.createCategoria(result));
@@ -32,7 +37,6 @@ export default class CategoriaService {
    public async updateNome(id: number, nome: string): Promise<Response> {
       const result = await this._categoriaDAO.updateNome(id, nome);
       return new Response(200, this.createCategoria(result.recordset));
-
    }
 
    private createCategoria(categoria): Array<Categoria> {

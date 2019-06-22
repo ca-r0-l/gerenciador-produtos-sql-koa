@@ -25,6 +25,12 @@ export default class ClienteService {
       return new Response(200, this.createCliente(res));
    }
 
+   public async detail(id: number): Promise<Response> {
+      this._clienteBO.validId(id);
+      const res = await this._clienteDAO.detail(id);
+      return new Response(200, this.createCliente(res));
+   }
+
    public async delete(id: number): Promise<Response> {
       this._clienteBO.validId(id);
       const res = await this._clienteDAO.delete(id);

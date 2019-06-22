@@ -12,14 +12,16 @@ const routerOpts: Router.IRouterOptions = {
 const pedidoController: Router = new Router(routerOpts);
 pedidoController
    .get("/", async (ctx: Koa.Context) => {
-      try {
-         const pageNumber: number = ctx.request.query.pageNumber;
-         const result: Response = await pedidoService.getAllPaginated(pageNumber);
-         ctx.body = result.data;
-         ctx.status = result.code;
-      } catch (err) {
-         ctx.throw(500, err.message);
-      }
+      const pageNumber: number = ctx.request.query.pageNumber;
+      const result: Response = await pedidoService.getAllPaginated(pageNumber);
+      ctx.body = result.data;
+      ctx.status = result.code;
+   })
+   .get("/:id", async (ctx: Koa.Context) => {
+      const id: number = ctx.params.id;
+      const result: Response = await pedidoService.detail(id);
+      ctx.body = result.data;
+      ctx.status = result.code;
    })
    .post("/", async (ctx: any) => {
       const pedido = ctx.request.body;
@@ -27,7 +29,7 @@ pedidoController
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .delete("/:id", async (ctx: any) => {
+   .delete("/:id", async (ctx: Koa.Context) => {
       const id: number = ctx.params.id;
       const result: Response = await pedidoService.delete(id);
       ctx.body = result.data;

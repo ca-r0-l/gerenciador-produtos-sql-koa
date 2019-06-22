@@ -25,6 +25,12 @@ export default class ProdutoService {
       return new Response(200, this.createProduto(res));
    }
 
+   public async detail(id: number): Promise<Response> {
+      this._produtoBO.validId(id);
+      const res = await this._produtoDAO.detail(id);
+      return new Response(200, this.createProduto(res));
+   }
+
    public async delete(id: number): Promise<Response> {
       this._produtoBO.validId(id);
       const res = await this._produtoDAO.delete(id);

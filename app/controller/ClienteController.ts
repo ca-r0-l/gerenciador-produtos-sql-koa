@@ -22,13 +22,19 @@ clienteController
          ctx.throw(500, err.message);
       }
    })
+   .get("/:id", async (ctx: Koa.Context) => {
+      const id = ctx.params.id;
+      const result: Response = await clienteService.detail(id);
+      ctx.body = result.data;
+      ctx.status = result.code;
+   })
    .post("/", async (ctx: any) => {
       const cliente = ctx.request.body;
       const result: Response = await clienteService.add(cliente);
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .delete("/:id", async (ctx: any) => {
+   .delete("/:id", async (ctx: Koa.Context) => {
       const id = ctx.params.id;
       const result: Response = await clienteService.delete(id);
       ctx.body = result.data;

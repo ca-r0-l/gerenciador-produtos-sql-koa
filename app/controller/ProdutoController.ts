@@ -13,14 +13,16 @@ const produtoController: Router = new Router(routerOpts);
 
 produtoController
    .get("/", async (ctx: Koa.Context) => {
-      try {
-         const pageNumber = ctx.request.query.pageNumber;
-         const result: Response = await produtoService.getAllPaginated(pageNumber);
-         ctx.body = result.data;
-         ctx.status = result.code;
-      } catch (err) {
-         ctx.throw(500, err.message);
-      }
+      const pageNumber = ctx.request.query.pageNumber;
+      const result: Response = await produtoService.getAllPaginated(pageNumber);
+      ctx.body = result.data;
+      ctx.status = result.code;
+   })
+   .get("/:id", async (ctx: Koa.Context) => {
+      const id: number = ctx.params.id;
+      const result: Response = await produtoService.detail(id);
+      ctx.body = result.data;
+      ctx.status = result.code;
    })
    .post("/", async (ctx: any) => {
       const produto = ctx.request.body;
@@ -28,7 +30,7 @@ produtoController
       ctx.body = result.data;
       ctx.status = result.code;
    })
-   .delete("/:id", async (ctx: any) => {
+   .delete("/:id", async (ctx: Koa.Context) => {
       const id: number = ctx.params.id;
       const result: Response = await produtoService.delete(id);
       ctx.body = result.data;
