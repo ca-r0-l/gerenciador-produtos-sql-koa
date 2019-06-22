@@ -1,16 +1,14 @@
 {
-    "compilerOptions": {
-        "target": "es6",
-        "outDir": "dist",
-        "noEmitOnError": true, 
-        "noImplicitAny": false,
-        "removeComments": true,
-        "strictNullChecks": true,
-        "experimentalDecorators": true,
-        "module": "commonjs",
-        "types": ["node"]
-    },
-    "include": [
-        "app/**/*"
-    ]
+   "compilerOptions": {
+      "target": "es6",
+      "outDir": "dist",
+      "noEmitOnError": true,
+      "noImplicitAny": false,
+      "removeComments": true,
+      "strictNullChecks": true,
+      "experimentalDecorators": true,
+      "module": "commonjs",
+      "types": ["node"]
+   },
+   "include": ["app/**/*"]
 }
