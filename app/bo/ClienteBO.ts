@@ -1,9 +1,12 @@
 import Endereco from "../entity/Endereco";
 import EnderecoBO from "./EnderecoBO";
+import Cliente from "../entity/Cliente";
 export default class ClienteBO {
    public static readonly ID_INVALIDO: string = "Id inválido";
    public static readonly NOME_INVALIDO: string = "Nome inválido";
    public static readonly CELULAR_INVALIDO: string = "Celular inválido";
+   public static readonly CLIENTE_INVALIDO: string = "Cliente inválido";
+
    private _enderecoBO: EnderecoBO = new EnderecoBO();
 
    validId(id?: any): void {
@@ -38,7 +41,8 @@ export default class ClienteBO {
       }
    }
 
-   validCliente(cliente): void {
+   validCliente(cliente: Cliente): void {
+      if (!cliente) throw new Error(ClienteBO.CLIENTE_INVALIDO);
       this.validNome(cliente.nome);
       this.validCelular(cliente.celular);
       this.validEndereco(cliente.endereco);

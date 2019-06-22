@@ -4,7 +4,7 @@ import Cliente from "../app/entity/Cliente";
 import Endereco from "../app/entity/Endereco";
 import EnderecoBO from "../app/bo/EnderecoBO";
 
-describe("cliente", () => {
+describe("ClienteBO =>", () => {
    const clienteBO = new ClienteBO();
    let cliente: Cliente;
    beforeEach(() => {

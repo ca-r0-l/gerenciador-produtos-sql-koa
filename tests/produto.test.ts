@@ -3,7 +3,7 @@ import ProdutoBO from "../app/bo/ProdutoBO";
 import Produto from "../app/entity/Produto";
 import Categoria from "../app/entity/Categoria";
 
-describe("produto", () => {
+describe("ProdutoBO =>", () => {
    const produtoBO = new ProdutoBO();
    let produto: Produto;
    beforeEach(() => {

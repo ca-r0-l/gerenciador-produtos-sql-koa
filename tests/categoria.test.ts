@@ -2,7 +2,7 @@ import "jasmine";
 import CategoriaBO from "../app/bo/CategoriaBO";
 import Categoria from "../app/entity/Categoria";
 
-describe("categoria", () => {
+describe("CategoriaBO =>", () => {
    const categoriaBO = new CategoriaBO();
    let categoria: Categoria;
    beforeEach(() => {
