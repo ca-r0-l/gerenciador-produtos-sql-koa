@@ -7,7 +7,7 @@ describe("produto", () => {
    const produtoBO = new ProdutoBO();
    let produto: Produto;
    beforeEach(() => {
-      produto = new Produto("carol", 10.2, new Categoria("salgado", 1), 1);
+      produto = new Produto("coxinha", 10.2, new Categoria("salgado", 1), 1);
    });
 
    it("produto válido, não retornará erro", () => {

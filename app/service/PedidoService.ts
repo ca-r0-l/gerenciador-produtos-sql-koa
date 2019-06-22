@@ -5,7 +5,6 @@ import Cliente from "../entity/Cliente";
 import Endereco from "../entity/Endereco";
 import PedidoBO from "../bo/PedidoBO";
 import Produto from "../entity/Produto";
-import Categoria from "../entity/Categoria";
 
 export default class PedidoService {
    private _pedidoDAO: PedidoDAO;

@@ -16,8 +16,9 @@ describe("categoria", () => {
    });
 
    it("nome da categoria inválida, erro: NOME_INVALIDO", () => {
+      categoria.nome = "";
       expect(() => {
          categoriaBO.validCategoria(categoria);
-      }).not.toThrow(CategoriaBO.NOME_INVALIDO);
+      }).toThrowError(CategoriaBO.NOME_INVALIDO);
    });
 });
