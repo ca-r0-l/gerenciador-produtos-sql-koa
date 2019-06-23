@@ -1,22 +1,24 @@
 import Categoria from "../entity/Categoria";
 
-export default class ClienteBO {
+export default class CategoriaBO {
    public static readonly ID_INVALIDO: string = "Id inválido";
    public static readonly NOME_INVALIDO: string = "Nome inválido";
+   public static readonly CATEGORIA_INVALIDA: string = "Categoria inválida";
 
    validId(id: any): void {
       if (!id || (id && id <= 0)) {
-         throw new Error(ClienteBO.ID_INVALIDO);
+         throw new Error(CategoriaBO.ID_INVALIDO);
       }
    }
 
    validNome(nome: string): void {
       if (!nome || (nome && nome.trim().length === 0)) {
-         throw new Error(ClienteBO.NOME_INVALIDO);
+         throw new Error(CategoriaBO.NOME_INVALIDO);
       }
    }
 
    validCategoria(categoria: Categoria): void {
+      if (!categoria) throw new Error(CategoriaBO.CATEGORIA_INVALIDA);
       this.validNome(categoria.nome);
    }
 }

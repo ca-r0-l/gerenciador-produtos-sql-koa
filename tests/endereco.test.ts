@@ -9,6 +9,12 @@ describe("EnderecoBO =>", () => {
       endereco = new Endereco("urca", 111, "independencia", "sbc", "SP");
    });
 
+   it("endereço válido, não retornará erro", () => {
+      expect(() => {
+         enderecoBO.validEndereco(endereco);
+      }).not.toThrow();
+   });
+
    it("rua inválida, erro: RUA_INVALIDA", () => {
       endereco.rua = "";
       expect(() => {

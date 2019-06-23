@@ -1,9 +1,11 @@
 import Categoria from "../entity/Categoria";
+import CategoriaBO from "./CategoriaBO";
 export default class ProdutoBO {
    public static readonly ID_INVALIDO: string = "Id inválido";
    public static readonly NOME_INVALIDO: string = "Nome inválido";
    public static readonly PRECO_UNITARIO_INVALIDO: string = "Preço unitário inválido";
-   public static readonly CATEGORIA_INVALIDA: string = "Categoria inválida";
+   public static readonly PRODUTO_INVALIDO: string = "Produto inválido";
+   private _categoriaBO: CategoriaBO = new CategoriaBO();
 
    validId(id: any): void {
       if (!id || (id && id <= 0)) {
@@ -27,19 +29,18 @@ export default class ProdutoBO {
       if (categoria) {
          if (typeof categoria === "number") {
             if (categoria <= 0) {
-               throw new Error(ProdutoBO.CATEGORIA_INVALIDA);
+               throw new Error(CategoriaBO.CATEGORIA_INVALIDA);
             }
          } else {
-            if (!categoria.nome || categoria.nome === "") {
-               throw new Error(ProdutoBO.CATEGORIA_INVALIDA);
-            }
+            this._categoriaBO.validCategoria(categoria);
          }
       } else {
-         throw new Error(ProdutoBO.CATEGORIA_INVALIDA);
+         throw new Error(CategoriaBO.CATEGORIA_INVALIDA);
       }
    }
 
    validProduto(produto): void {
+      if (!produto) throw new Error(ProdutoBO.PRODUTO_INVALIDO);
       this.validNome(produto.nome);
       this.validPreco(produto.preco_unitario);
       this.validCategoria(produto.categoria);

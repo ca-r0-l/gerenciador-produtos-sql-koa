@@ -27,7 +27,7 @@ export default class ClienteBO {
       }
    }
 
-   validEndereco(endereco?: number | Endereco): void {
+   validEndereco(endereco: number | Endereco): void {
       if (endereco) {
          if (typeof endereco === "number") {
             if (endereco <= 0) {
@@ -41,7 +41,7 @@ export default class ClienteBO {
       }
    }
 
-   validCliente(cliente: Cliente): void {
+   validCliente(cliente): void {
       if (!cliente) throw new Error(ClienteBO.CLIENTE_INVALIDO);
       this.validNome(cliente.nome);
       this.validCelular(cliente.celular);

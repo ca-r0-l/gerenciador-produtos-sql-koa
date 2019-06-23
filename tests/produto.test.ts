@@ -2,6 +2,7 @@ import "jasmine";
 import ProdutoBO from "../app/bo/ProdutoBO";
 import Produto from "../app/entity/Produto";
 import Categoria from "../app/entity/Categoria";
+import CategoriaBO from "../app/bo/CategoriaBO";
 
 describe("ProdutoBO =>", () => {
    const produtoBO = new ProdutoBO();
@@ -31,9 +32,9 @@ describe("ProdutoBO =>", () => {
    });
 
    it("categoria inválida, erro: CATEGORIA_INVALIDA", () => {
-      produto.categoria.nome = "";
+      delete produto.categoria;
       expect(() => {
          produtoBO.validProduto(produto);
-      }).toThrowError(ProdutoBO.CATEGORIA_INVALIDA);
+      }).toThrowError(CategoriaBO.CATEGORIA_INVALIDA);
    });
 });

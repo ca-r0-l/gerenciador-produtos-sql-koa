@@ -1,9 +1,13 @@
 import Produto from "../entity/Produto";
+import Pedido from "../entity/Pedido";
+import Cliente from "../entity/Cliente";
+import ClienteBO from "./ClienteBO";
 export default class PedidoBO {
-   private static readonly ID_INVALIDO: string = "Id inválido";
-   private static readonly CLIENTE_INVALIDO: string = "Cliente inválido";
-   private static readonly VALOR_INVALIDO: string = "Valor inválido";
-   private static readonly PRODUTOS_INVALIDOS: string = "Pedidos inválidos. Necessário pelo menos 1.";
+   public static readonly ID_INVALIDO: string = "Id inválido";
+   public static readonly VALOR_INVALIDO: string = "Valor inválido";
+   public static readonly PRODUTOS_INVALIDOS: string = "Pedidos inválidos. Necessário pelo menos 1.";
+
+   private _clienteBO: ClienteBO = new ClienteBO();
 
    validId(id: any): void {
       if (!id || (id && id <= 0)) {
@@ -11,9 +15,15 @@ export default class PedidoBO {
       }
    }
 
-   validCliente(cliente: number): void {
-      if (!cliente || (cliente && cliente <= 0)) {
-         throw new Error(PedidoBO.CLIENTE_INVALIDO);
+   validCliente(cliente: number | Cliente): void {
+      if (cliente) {
+         if (cliente && cliente <= 0) {
+            throw new Error(ClienteBO.CLIENTE_INVALIDO);
+         } else {
+            this._clienteBO.validCliente(cliente);
+         }
+      } else {
+         throw new Error(ClienteBO.CLIENTE_INVALIDO);
       }
    }
 
@@ -29,7 +39,7 @@ export default class PedidoBO {
       }
    }
 
-   validPedido(pedido): void {
+   validPedido(pedido: Pedido): void {
       this.validCliente(pedido.cliente);
       this.validValor(pedido.valorCompra);
       this.validProdutos(pedido.produtos);
