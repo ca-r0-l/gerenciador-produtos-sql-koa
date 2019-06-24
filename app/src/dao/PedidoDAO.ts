@@ -1,4 +1,4 @@
-import connection from "../dbConnection";
+import connection from "../../dbConnection";
 import Pedido from "../entity/Pedido";
 import Produto from "../entity/Produto";
 

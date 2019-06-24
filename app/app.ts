@@ -1,11 +1,11 @@
 import * as Koa from "koa";
 import * as bodyParser from "koa-bodyparser";
 import * as json from "koa-json";
-import produtoController from "./controller/ProdutoController";
-import categoriaController from "./controller/CategoriaController";
-import clienteController from "./controller/ClienteController";
-import enderecoController from "./controller/EnderecoController";
-import pedidoController from "./controller/PedidoController";
+import produtoController from "./src/controller/ProdutoController";
+import categoriaController from "./src/controller/CategoriaController";
+import clienteController from "./src/controller/ClienteController";
+import enderecoController from "./src/controller/EnderecoController";
+import pedidoController from "./src/controller/PedidoController";
 
 const app = new Koa();
 app.use(async (ctx, next) => {

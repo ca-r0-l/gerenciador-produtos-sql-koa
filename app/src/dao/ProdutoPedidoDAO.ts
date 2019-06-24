@@ -1,4 +1,4 @@
-import connection from "../dbConnection";
+import connection from "../../dbConnection";
 
 export default class ProdutoPedidoDAO {
    private PER_PAGE: number = 5;
